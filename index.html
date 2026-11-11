@@ -1,0 +1,637 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Feedback System</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #f3f4fc;
+    color: #303451;
+}
+
+/* HEADER */
+header {
+    background: white;
+    padding: 20px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 3px 15px #00000012;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.logo {
+    color: #6044b5;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+nav a {
+    text-decoration: none;
+    color: #444567;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #8155d5;
+}
+
+/* HERO */
+.hero {
+    width: 88%;
+    margin: 35px auto;
+    padding: 55px;
+    border-radius: 20px;
+    background: linear-gradient(120deg, #3546a0, #8752d0);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hero h1 {
+    font-size: 42px;
+    margin: 18px 0;
+}
+
+.hero p {
+    line-height: 1.7;
+    color: #eeeeff;
+    margin-bottom: 25px;
+}
+
+.tag {
+    background: #ffffff30;
+    padding: 9px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.hero-icon {
+    font-size: 90px;
+}
+
+.hero-button {
+    display: inline-block;
+    padding: 13px 23px;
+    border-radius: 8px;
+    background: white;
+    color: #6044b5;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* MAIN */
+main {
+    width: 86%;
+    max-width: 1200px;
+    margin: 40px auto;
+}
+
+.section-title {
+    margin-bottom: 20px;
+    color: #39427f;
+}
+
+/* DASHBOARD CARDS */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-bottom: 40px;
+}
+
+.card {
+    background: white;
+    padding: 27px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px #0000000d;
+    border-bottom: 4px solid #8052ce;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card:nth-child(2) {
+    border-color: #3397d7;
+}
+
+.card:nth-child(3) {
+    border-color: #ed9b3e;
+}
+
+.card .emoji {
+    font-size: 30px;
+}
+
+.card h2 {
+    font-size: 32px;
+    margin: 12px 0 5px;
+    color: #6044b5;
+}
+
+.card p {
+    color: #777b91;
+}
+
+/* FORM */
+.form-section, .records-section {
+    background: white;
+    padding: 35px;
+    border-radius: 17px;
+    box-shadow: 0 5px 20px #0000000d;
+    margin-bottom: 40px;
+}
+
+.form-section h2, .records-section h2 {
+    color: #45458e;
+    margin-bottom: 10px;
+}
+
+.description {
+    color: #85869a;
+    margin-bottom: 25px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 9px;
+    color: #41445e;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #dedfee;
+    border-radius: 9px;
+    background: #fafaff;
+    font-size: 15px;
+    outline: none;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #7952d5;
+    box-shadow: 0 0 0 3px #7952d51a;
+}
+
+textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+/* BUTTONS */
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    color: white;
+    background: linear-gradient(120deg, #4554b5, #8050cf);
+}
+
+.submit-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+#successMessage {
+    text-align: center;
+    color: #16834b;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+/* FEEDBACK */
+.feedback-card {
+    padding: 20px;
+    background: linear-gradient(120deg, #f4f1ff, #eff6ff);
+    border-left: 5px solid #8052ce;
+    border-radius: 10px;
+    margin-top: 15px;
+    overflow-wrap: anywhere;
+}
+
+.feedback-card h3 {
+    color: #6044b5;
+    margin-bottom: 10px;
+}
+
+.feedback-card p {
+    margin-top: 9px;
+    line-height: 1.5;
+    color: #555b73;
+}
+
+.delete-btn {
+    background: #ffe7ec;
+    color: #d33b56;
+    padding: 9px 15px;
+    margin-top: 12px;
+}
+
+.clear-btn {
+    background: #ffe7ec;
+    color: #d33b56;
+    padding: 12px 18px;
+}
+
+.records-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.empty {
+    text-align: center;
+    padding: 30px;
+    color: #85869a;
+}
+
+/* FOOTER */
+footer {
+    background: #252d68;
+    color: white;
+    text-align: center;
+    padding: 30px;
+    line-height: 1.8;
+}
+
+/* MOBILE */
+@media(max-width: 700px) {
+    header {
+        flex-direction: column;
+    }
+
+    nav a {
+        margin: 8px;
+        font-size: 13px;
+    }
+
+    .hero {
+        width: 94%;
+        padding: 30px;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+    }
+
+    .hero-icon {
+        display: none;
+    }
+
+    main {
+        width: 94%;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .form-section, .records-section {
+        padding: 22px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🎓 Student Feedback</div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#feedback">Give Feedback</a>
+        <a href="#records">View Feedback</a>
+    </nav>
+</header>
+
+<section class="hero" id="home">
+    <div>
+        <span class="tag">COLLEGE FEEDBACK PORTAL</span>
+        <h1>Your Voice Matters!</h1>
+        <p>Share your experience and help us improve<br>
+        the quality of education.</p>
+        <a href="#feedback" class="hero-button">Give Feedback →</a>
+    </div>
+
+    <div class="hero-icon">📚</div>
+</section>
+
+<main>
+
+    <h2 class="section-title">Dashboard Overview</h2>
+
+    <div class="stats">
+        <div class="card">
+            <div class="emoji">📝</div>
+            <h2 id="totalFeedback">0</h2>
+            <p>Total Feedback</p>
+        </div>
+
+        <div class="card">
+            <div class="emoji">👨‍🎓</div>
+            <h2 id="totalStudents">0</h2>
+            <p>Total Students</p>
+        </div>
+
+        <div class="card">
+            <div class="emoji">⭐</div>
+            <h2 id="averageRating">0.0</h2>
+            <p>Average Rating</p>
+        </div>
+    </div>
+
+    <section class="form-section" id="feedback">
+
+        <h2>✍️ Student Feedback Form</h2>
+        <p class="description">Please fill in your details below.</p>
+
+        <form id="feedbackForm">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Student Name</label>
+                    <input type="text" id="name"
+                    placeholder="Enter your name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Roll Number</label>
+                    <input type="text" id="roll"
+                    placeholder="Enter roll number" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Select Subject</label>
+                    <select id="subject" required>
+                        <option value="">Choose Subject</option>
+                        <option>Full Stack Development</option>
+                        <option>Database Management</option>
+                        <option>Java Programming</option>
+                        <option>Python Programming</option>
+                        <option>Computer Networks</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Teacher Rating</label>
+                    <select id="rating" required>
+                        <option value="">Select Rating</option>
+                        <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+                        <option value="4">⭐⭐⭐⭐ Very Good</option>
+                        <option value="3">⭐⭐⭐ Good</option>
+                        <option value="2">⭐⭐ Average</option>
+                        <option value="1">⭐ Poor</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label>Your Feedback</label>
+                <textarea id="message"
+                placeholder="Write your feedback here..."
+                required></textarea>
+            </div>
+
+            <button class="submit-btn" type="submit">
+                Submit Feedback →
+            </button>
+
+            <p id="successMessage"></p>
+
+        </form>
+    </section>
+
+    <section class="records-section" id="records">
+
+        <div class="records-heading">
+            <div>
+                <h2>Recent Feedback</h2>
+                <p class="description">
+                    View feedback submitted by students.
+                </p>
+            </div>
+
+            <button class="clear-btn" id="clearButton">
+                Clear All
+            </button>
+        </div>
+
+        <div id="feedbackList"></div>
+
+    </section>
+
+</main>
+
+<footer>
+    <h3>🎓 Student Feedback System</h3>
+    <p>Improving Education Through Student Feedback</p>
+    <p>© 2026 Student Feedback System | College Project</p>
+</footer>
+
+<script>
+
+// GET SAVED FEEDBACK
+let feedbacks = JSON.parse(
+    localStorage.getItem("studentFeedbacks") || "[]"
+);
+
+const form = document.getElementById("feedbackForm");
+const feedbackList = document.getElementById("feedbackList");
+const successMessage = document.getElementById("successMessage");
+
+// UPDATE DASHBOARD
+function updateDashboard() {
+
+    document.getElementById("totalFeedback").textContent =
+        feedbacks.length;
+
+    let students = new Set(
+        feedbacks.map(item => item.roll.toLowerCase())
+    );
+
+    document.getElementById("totalStudents").textContent =
+        students.size;
+
+    let average = feedbacks.length
+        ? feedbacks.reduce(
+            (sum, item) => sum + Number(item.rating), 0
+          ) / feedbacks.length
+        : 0;
+
+    document.getElementById("averageRating").textContent =
+        average.toFixed(1);
+}
+
+// DISPLAY FEEDBACK
+function displayFeedback() {
+
+    feedbackList.replaceChildren();
+
+    if (feedbacks.length === 0) {
+        const empty = document.createElement("p");
+        empty.className = "empty";
+        empty.textContent = "📝 No feedback submitted yet.";
+        feedbackList.appendChild(empty);
+    }
+
+    feedbacks.forEach(function(item, index) {
+
+        const card = document.createElement("div");
+        card.className = "feedback-card";
+
+        const heading = document.createElement("h3");
+        heading.textContent = "👨‍🎓 " + item.name;
+
+        const roll = document.createElement("p");
+        roll.textContent = "Roll Number: " + item.roll;
+
+        const subject = document.createElement("p");
+        subject.textContent = "Subject: " + item.subject;
+
+        const rating = document.createElement("p");
+        rating.textContent =
+            "Rating: " + "⭐".repeat(Number(item.rating));
+
+        const message = document.createElement("p");
+        message.textContent = "Feedback: " + item.message;
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.className = "delete-btn";
+        deleteBtn.textContent = "Delete";
+
+        deleteBtn.addEventListener("click", function() {
+
+            feedbacks.splice(index, 1);
+            saveFeedback();
+
+            successMessage.textContent =
+                "Feedback deleted successfully!";
+        });
+
+        card.append(
+            heading, roll, subject,
+            rating, message, deleteBtn
+        );
+
+        feedbackList.appendChild(card);
+    });
+
+    updateDashboard();
+}
+
+// SAVE FEEDBACK
+function saveFeedback() {
+
+    localStorage.setItem(
+        "studentFeedbacks",
+        JSON.stringify(feedbacks)
+    );
+
+    displayFeedback();
+}
+
+// SUBMIT FEEDBACK
+form.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const feedback = {
+        name: document.getElementById("name").value.trim(),
+        roll: document.getElementById("roll").value.trim(),
+        subject: document.getElementById("subject").value,
+        rating: document.getElementById("rating").value,
+        message: document.getElementById("message").value.trim()
+    };
+
+    if (!feedback.name || !feedback.roll || !feedback.message) {
+        alert("Please fill all fields.");
+        return;
+    }
+
+    feedbacks.push(feedback);
+
+    saveFeedback();
+
+    form.reset();
+
+    successMessage.textContent =
+        "✅ Feedback submitted successfully!";
+});
+
+// CLEAR ALL FEEDBACK
+document.getElementById("clearButton")
+.addEventListener("click", function() {
+
+    if (feedbacks.length === 0) {
+        alert("No feedback available.");
+        return;
+    }
+
+    if (confirm("Are you sure you want to clear all feedback?")) {
+
+        feedbacks = [];
+
+        localStorage.removeItem("studentFeedbacks");
+
+        displayFeedback();
+
+        successMessage.textContent =
+            "All feedback cleared successfully!";
+    }
+});
+
+// INITIAL DISPLAY
+displayFeedback();
+
+</script>
+
+</body>
+</html>
